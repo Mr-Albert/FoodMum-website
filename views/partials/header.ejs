@@ -1,0 +1,87 @@
+<header>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    <%=WebSiteName%>
+                </a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <span class="dropdown">
+                        <button class="btn dropdown-toggle" style="background-color:transparent;padding-top: 15px; padding-bottom: 15px;" id="menu1"
+                            type="button" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-bell" style="color:#8286C5"></i>
+                        </button>
+                        <span class="badge badge-notify" style="font-size:10px;  background:#4CD964;   position:relative;   top: -12px;   left: -40px;">
+                            <%=notifications.length %>
+                        </span>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                            <%notifications.forEach(function(item){%>
+                                <li role="presentation">
+                                    <h6 style="    padding: 3px 20px;" role="menuitem" tabindex="-1" href="#">
+                                        <%=item%>
+                                    </h6>
+                                </li>
+                                <% });%>
+                        </ul>
+                    </span>
+                </li>
+                <li>
+                    <div class="collapse navbar-collapse bs-example-js-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown" id="example" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom" >  
+                        <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><%=userName%> <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/account">Account</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">logbout</a></li>
+                        </ul>
+                        </li>
+                    </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+</header>
+
+<body style="background-image:url(images/bg.png); background-repeat:no-repeat; background-size:10%; background-position:center;" >
+    <div id="wrapper" class="">
+        <div class="overlay" style="display: none;"></div>
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+            <ul class="nav sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#"> Navigation </a>
+                </li>
+                <%pages.forEach(function(items){
+                if(items.length>2){%>
+                    <ul>
+                        <%items.forEach(function(item){%>
+                            <li>
+                                <a href=<%=item.link%>>
+                                    <i class="glyphicon glyphicon-camera"></i>
+                                    <%=item.name%>
+                                </a>
+                            </li>
+
+                            <%});%>
+                    </ul>
+                    <%}
+                else{%>
+                        <li>
+                            <a href=<%=items.link%>>
+                                <i class="glyphicon glyphicon-camera"></i>
+                                <%=items.name%>
+                            </a>
+                        </li>
+                        <%}});%>
+            </ul>
+        </nav>
+        <div id="page-content-wrapper">
+            <button style="margin-top: 25pt;" type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+                <span class="hamb-middle"></span>
+                <span class="hamb-bottom"></span>
+            </button>
+            <div class="container" style="display:grid;">

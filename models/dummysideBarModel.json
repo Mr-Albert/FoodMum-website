@@ -1,0 +1,10 @@
+{
+    "pages": [{
+            "link": "/home",
+            "name": "Home"
+        }, {
+            "link": "/Tables",
+            "name": "Food table"
+        }
+    ]
+}

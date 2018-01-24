@@ -4,10 +4,19 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var lessMiddleware = require('less-middleware');
+var passport = require('passport');
+var LocalStrategy = require('passport-local-roles').Strategy;
 
-var index = require('./routes/index');
+//var lessMiddleware = require('less-middleware');
+
+var home = require('./routes/home');
+var login = require('./routes/login');
+var signup = require('./routes/signup');
 var users = require('./routes/users');
+var account = require('./routes/account');
+var tables = require('./routes/tables');
+var authorizeController = require('./controllers/authorizeController');
+
 
 var app = express();
 
@@ -21,11 +30,34 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(lessMiddleware(path.join(__dirname, 'public')));
+//app.use(lessMiddleware(path.join(__dirname, 'public')));
+
+app.use(require('express-session')({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+app.use('/', home);
+app.use('/home', home);
 app.use('/users', users);
+app.use('/login', login);
+app.use('/account', account);
+app.use('/tables', tables);
+passport.use(new LocalStrategy(authorizeController.authenticate(username, password, role, done)));
+passport.serializeUser(authorizeController.serializeUser());
+passport.deserializeUser(authorizeController.deserializeUser());
+/*
+app.use('/*',  function(req, res, next) {
+  res.redirect('/');
+  });*/
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

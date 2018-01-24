@@ -1,8 +1,12 @@
 body {
-  padding: 50px;
+  padding: 2px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+.container
+{
+  grid-template:repeat(3,1fr)/repeat(3,1fr)  ;
 }
